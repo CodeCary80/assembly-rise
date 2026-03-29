@@ -1,16 +1,79 @@
-# React + Vite
+# Assembly: Endgame
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Hangman-style word game built with React. Guess the hidden word before the programming world falls to Assembly!
 
-Currently, two official plugins are available:
+🔗 **[Live Demo](https://assemblyrise.netlify.app/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## How to Play
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Guess letters one at a time by clicking the on-screen keyboard
+- You have **8 attempts** before Assembly takes over
+- Each wrong guess eliminates a programming language
+- Reveal the full word before all languages are gone to win
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+
+- 🎮 Random word selection from a curated word list
+- 💀 Language elimination chips with visual skull overlay on wrong guesses
+- 🎉 Confetti animation on win
+- ♿ Accessible — screen reader support via `aria-live` regions and `sr-only` status announcements
+- 🔄 New Game button to restart without a page refresh
+
+---
+
+## Built With
+
+- **React 18** — component architecture, `useState`, derived state
+- **clsx** — conditional class management
+- **react-confetti** — win animation
+- **Vite** — build tooling
+- **CSS3** — custom styling, no UI framework
+
+---
+
+## Getting Started
+
+```bash
+# Clone the repo
+git clone https://github.com/CodeCary80/assembly-rise.git
+cd assembly-rise
+
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## Project Structure
+
+```
+src/
+├── App.jsx        # Main game component — all state and logic
+├── languages.js   # Programming language data (name, colors)
+├── utils.js       # getRandomWord, getFarewellText helpers
+├── words.js       # Word list
+├── index.css      # Global styles
+└── App.css        # Component styles
+```
+
+---
+
+## What I Learned
+
+- Managing multiple pieces of derived state from a single source of truth
+- Using `clsx` for clean conditional class logic
+- Implementing accessible UI with `aria-live` and visually hidden status regions
+- Lazy initializer in `useState` for one-time random word selection
+
+---
+
+Made by [Cary Zhu](https://build-nu-two.vercel.app/) · [GitHub](https://github.com/CodeCary80)

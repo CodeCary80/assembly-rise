@@ -1,4 +1,4 @@
-# Assembly: Endgame
+# Assembly: Rise
 
 A Hangman-style word game built with React. Guess the hidden word before the programming world falls to Assembly!
 

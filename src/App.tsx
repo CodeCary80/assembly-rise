@@ -1,42 +1,46 @@
 import { useState } from "react"
 import { clsx } from "clsx"
-import { languages } from "./languages.js"
-import { getFarewellText, getRandomWord } from "./utils.js"
+import { languages,Language } from "./languages"
+import { getFarewellText, getRandomWord } from "./utils"
 import React from 'react'
 import Confetti from 'react-confetti'
 
 export default function AssemblyEndgame() {
 
-  const [currentWord, setCurrenword] = useState(()=>getRandomWord())
-  const [guessLetters, setGuessLetters] = useState([])
+//state values
+  const [currentWord, setCurrentWord] = useState<string>(():string=>getRandomWord())
+  const [guessLetters, setGuessLetters] = useState<string[]>([])
 
-  const numGuessesLeft = languages.length -1 
-  const wrongGuessCount = 
-          guessLetters.filter(letter=>!currentWord.includes(letter)).length
-  const isGameWon = 
-        currentWord.split("").every(letter=>guessLetters.includes(letter))
-  const isGameLost =
+
+  //derived values
+  const numGuessesLeft:number = languages.length -1 
+  const wrongGuessCount:number = 
+          guessLetters.filter((letter:string):boolean=>!currentWord.includes(letter)).length
+  const isGameWon:boolean = 
+        currentWord.split("").every((letter:string):boolean=>guessLetters.includes(letter))
+  const isGameLost:boolean =
          wrongGuessCount >= numGuessesLeft
-  const isGameOver = isGameWon || isGameLost
-  const lastGuessedLetter = guessLetters[guessLetters.length -1]
-  const isLastGuessedLetterInCorrect = !currentWord.includes(lastGuessedLetter) && lastGuessedLetter
+  const isGameOver:boolean = isGameWon || isGameLost
+  const lastGuessedLetter:string = guessLetters[guessLetters.length -1]
+  const isLastGuessedLetterInCorrect:boolean = Boolean(!currentWord.includes(lastGuessedLetter) && lastGuessedLetter)
 
+  //static values
   const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-  function addGuessLetter(letter){
-        setGuessLetters(prevLetter=>
+  function addGuessedLetter(letter:string){
+        setGuessLetters((prevLetter:string[]):string[]=>
             prevLetter.includes(letter)?
             prevLetter:
             [...prevLetter,letter]
         )
   }
 
-  function startNewGame(){
+  function startNewGame():void{
         setGuessLetters([])
-        setCurrenword(getRandomWord())
+        setCurrentWord(getRandomWord())
   }
 
-  const languageElements = languages.map((lang,index)=>{
+  const languageElements = languages.map((lang:Language,index:number)=>{
         const isLanguageLost = index < wrongGuessCount
         const styles = {
               backgroundColor : lang.backgroundColor,
@@ -55,7 +59,7 @@ export default function AssemblyEndgame() {
 
   )
 
-  const letterElements = currentWord.split("").map((letter,index)=>{
+  const letterElements = currentWord.split("").map((letter:string,index:number)=>{
     const shouldRevealLetter = isGameLost || guessLetters.includes(letter)
     const letterClassName = clsx(isGameLost && !guessLetters.includes(letter) && "missed-letter")
     return(
@@ -67,7 +71,7 @@ export default function AssemblyEndgame() {
   })
 
 
-  const keyboardElements = alphabet.split("").map(letter=>{
+  const keyboardElements = alphabet.split("").map((letter:string)=>{
         const isGuessed = guessLetters.includes(letter)
         const isCorrect = isGuessed && currentWord.includes(letter)
         const isWrong = isGuessed && !currentWord.includes(letter)
@@ -79,7 +83,7 @@ export default function AssemblyEndgame() {
       <button
           className={className}
           key={letter}
-          onClick={()=>addGuessLetter(letter)}
+          onClick={()=>addGuessedLetter(letter)}
       >{letter.toUpperCase()}</button>
     )
   })
